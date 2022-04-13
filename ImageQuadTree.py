@@ -6,7 +6,7 @@ ERROR_THRESHOLD = 7
 
 
 def weighted_average(hist):
-    """Returns the weighted color average and error from a hisogram of pixles"""
+    """Returns the weighted color average and error from a histogram of pixels"""
     total = sum(hist)
     value, error = 0, 0
     if total > 0:
@@ -17,7 +17,7 @@ def weighted_average(hist):
 
 
 def color_from_histogram(hist):
-    """Returns the average rgb color from a given histogram of pixle color counts"""
+    """Returns the average rgb color from a given histogram of pixel color counts"""
     r, re = weighted_average(hist[:256])
     g, ge = weighted_average(hist[256:512])
     b, be = weighted_average(hist[512:768])
@@ -42,7 +42,7 @@ class QuadtreeNode(object):
         self.color, self.error = color_from_histogram(hist)  # (r, g, b), error
 
     def is_leaf(self):
-        """Determins if a the node is a leaf"""
+        """Determine if a the node is a leaf"""
         return self.leaf
 
     def split(self, img):
@@ -60,7 +60,7 @@ class QuadtreeNode(object):
 class Quadtree(object):
     """Tree that has nodes with at most four child nodes that hold 
         sections of an image where there at most n leaf nodes where
-        n is the number of pixles in the image"""
+        n is the number of pixels in the image"""
 
     def __init__(self, image, max_depth=1024):
         self.root = QuadtreeNode(image, image.getbbox(), 0)
@@ -84,7 +84,7 @@ class Quadtree(object):
     def get_leaf_nodes(self, depth):
         """Gets all the nodes on a given depth/level"""
         def get_leaf_nodes_recusion(tree, node, depth, func):
-            """Recusivley gets leaf nodes based on whether a node is a leaf or the given depth is reached"""
+            """Recursively gets leaf nodes based on whether a node is a leaf or the given depth is reached"""
             if node.leaf is True or node.depth == depth:
                 func(node)
             elif node.children is not None:
